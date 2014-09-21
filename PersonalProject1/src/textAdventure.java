@@ -3,6 +3,12 @@ import java.util.ArrayList;
 public class textAdventure
 	{
 	public static int startingGold = 500;
+	public static int health = 25;
+	public static int monHealth = 10; 
+	public static int bossHealth = 25; 
+	public static int monAttack = 4; 
+	public static int bossAttack = 15;
+	public static int statCounter = 0;
 	public static void main(String[] args)
 		{
 		Character();
@@ -20,13 +26,13 @@ public class textAdventure
 			if(class1.equals("mage"))
 				{
 				GameData.data.add(new GameData (3, 10));
-				System.out.println("Congratulations " + name + " you are a " + class1 + " with " + GameData.data.get(0).getAttack() + " attack skill and " + GameData.data.get(0).getAbility() + " ability power!");
+				System.out.println("Congratulations " + name + " you are a " + class1 + " with " + GameData.data.get(statCounter).getAttack() + " attack skill and " + GameData.data.get(statCounter).getAbility() + " ability power!");
 		
 				}
 			if(class1.equals("warrior"))
 				{
 				GameData.data.add(new GameData (10, 3));
-				System.out.println("Congratulations " + name + " you are a " + class1 + " with " + GameData.data.get(0).getAttack() + " attack skill and " + GameData.data.get(0).getAbility() + " ability power!");
+				System.out.println("Congratulations " + name + " you are a " + class1 + " with " + GameData.data.get(statCounter).getAttack() + " attack skill and " + GameData.data.get(statCounter).getAbility() + " ability power!");
 			
 				}
 			
@@ -87,7 +93,7 @@ public class textAdventure
 								}
 							}
 						}
-						if(decision.equals("no"))
+						if(explore.equals("no"))
 							{
 							System.out.println("You have decided against doing anything at all. Probably safe, as it would be dangerous to move from this location. You decide to live a life of woeful inadaquecy until you pass away without leaving this trusty safe spot.");
 							//insert method that exits the program here
@@ -105,16 +111,18 @@ public class textAdventure
 				System.out.println("You have decided to go to the town battle hall would you like to train abilities or attack?");
 				String train = keyboard.next();
 				if(train.equals("abilities"))
-					{
-					GameData.data.add(new GameData (3, GameData.data.get(0).getAbility()+1));
-					System.out.println("Congratulations your ability power is now " + GameData.data.get(1).getAbility() + " this has costed you 100 of your " + startingGold + " gold.");
+					{				
+					GameData.data.add(new GameData (3, GameData.data.get(statCounter).getAbility()+1));
+					statCounter = statCounter + 1;
+					System.out.println("Congratulations your ability power is now " + GameData.data.get(statCounter).getAbility() + " this has costed you 100 of your " + startingGold + " gold.");
 					startingGold = startingGold - 100; 
 					townOptions();
 					}
 				if(train.equals("attack"))
 					{
-					GameData.data.add(new GameData (GameData.data.get(0).getAttack()+1, GameData.data.get(0).getAttack()) + "this has costed you 100 of your " + startingGold + " gold.");
-					System.out.println("Congratulations your attack power is now " + GameData.data.get(1).getAttack());
+					GameData.data.add(new GameData (GameData.data.get(statCounter).getAttack()+1, GameData.data.get(statCounter).getAbility()));
+					statCounter = statCounter + 1; 
+					System.out.println("Congratulations your attack power is now " + GameData.data.get(statCounter).getAttack() + " this has costed you 100 of your " + startingGold + " gold.");
 					startingGold = startingGold - 100; 
 					townOptions();
 					}
@@ -126,27 +134,20 @@ public class textAdventure
 				String buy = keyboard1.next();
 				if(buy.equals("physical"));
 					{
-					System.out.println("You make your way over to the physical item salesman, who is showing you three items.");
-					String[] newBuy = {"Sword", "Rapier", "Axe", "Mace", "Halberd", "Big Club", "Dagger",};
-					int buyRandomizer = (int)(Math.random()*7);
-					int buyRandomizer2 = (int)(Math.random()*7);
-					int buyRandomizer3 = (int)(Math.random()*7);
-					// consider having set items that cost different prices with set stats. 
-					System.out.println("He shows you the " + newBuy[buyRandomizer]);
-					System.out.print(", the " + newBuy[buyRandomizer2]);
-					System.out.print(", and the " + newBuy[buyRandomizer3]);
-					}
+					System.out.println("You make your way over to the physical item salesman, who is showing you three items. A dagger, sword, and mace.");
+					
 				}
 			if(options.equals("explore"))
 				{
 				Scanner keyboard2 = new Scanner(System.in);
-				System.out.println("You find yourself wandering the town when you come across a giant pit in the middle of the town square. Someone explains to you that this is the legendary Dungeon of Horrors. It descends ten floors and on each floor more powerful monsters will attack you, but you will also find better treasure. Will you enter the dungeon?");
+				System.out.println("You find yourself wandering the town when you come across a giant pit in the middle of the town square. Someone explains to you that this is the legendary Dungeon of Horrors. It descends 5 floors and on each floor more powerful monsters will attack you, but you will also find better treasure. Will you enter the dungeon?");
 				String dungeonDecision = keyboard2.next();
 				if(dungeonDecision.equals("yes"));
 					{
 					System.out.println("You descend into the Dungeon of Horrors, eager to seek your destiny.");
 					// insert dungeon method here 
 					}
+				}
 				}
 			}
 		
@@ -159,13 +160,71 @@ public class textAdventure
 			String decision = keyboard.next();
 			if(decision.equals ("run"))
 				{
-				//create a consequence for running
+				System.out.println("You have decided to run away from the " + newFight[enemyRandomizer] + " if you are successful you will escape, but drop half of your remaining gold in haste, if you are unsuccessful the monster will get a free attack on you.");
+				int run = (int)(Math.random()*2 + 1);
+				if(run == 1)
+				{
+					startingGold = startingGold/2;
+					System.out.println("You have escaped the monster, however now you only have " + startingGold + " gold remaining.");
+					location();
+				}
+				if(run == 2)
+				{
+					Scanner keyboard1 = new Scanner(System.in);
+					System.out.println("You have failed to escape, the monster will now attack you.");
+					health = health - monAttack;
+					System.out.println("The monster has attacked you for " + monAttack + " damage, leaving you with " + health + " health remaining");
+					combat();
+				}
 				}
 			if(decision.equals ("fight"))
 				{
-				// make sure the creature can attack and you can lose health, and vice versa. Gold is randomly dropped by creatures. After 5 fights a stat will increase by one. 
+				combat();
 				}
 			
 			}
+		
+		public static void Dungeon()
+		{
+		System.out.println("You have entered the dungeon.");
+		
 		}
+		
+		public static void combat()
+		{
+            Scanner keyboard = new Scanner(System.in);		
+			System.out.println("The monster attacks! Will you fight with attacks, magic, or try to counter it?");
+			boolean fightContinues = true;
+			do
+			{
+			System.out.println("The monster attacks! Will you fight with attacks, magic, or try to counter it?");
+			String fightDecision = keyboard.next();
+			if(fightDecision.equals ("magic"))
+			{
+				monHealth = monHealth - GameData.data.get(statCounter).getAbility();
+				if(monHealth <= 0)
+				{
+					System.out.println("You have defeated the monster, it dropped some gold on the ground.");
+					startingGold = startingGold + (int)(Math.random()*200);
+					System.out.println("You now have " + startingGold + " gold.");
+					fightContinues = false;
+					
+				}
+				if(monHealth >= 0)
+				{
+					System.out.println("The monster now has " + monHealth + " health remaining. It now attacks you!");
+					health = health - monAttack;
+					System.out.println("The monster hits you for " + monAttack + " damage. You now have " + health + " remaining");
+					if(health <=0)
+					{
+						System.out.println("You have been slain");
+						// enter method to exit program 
+					}
+				}
+			}
+			
+		}
+		while(fightContinues);
+		}
+	}
 	
