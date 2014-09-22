@@ -108,6 +108,11 @@ public class textAdventure
 			String options = keyboard.next();
 			if(options.equals("train"))
 				{
+				if(startingGold < 100)
+					{
+					System.out.println("I'm sorry but you can't train without at least 100 gold.");
+					townOptions();
+					}
 				System.out.println("You have decided to go to the town battle hall would you like to train abilities or attack?");
 				String train = keyboard.next();
 				if(train.equals("abilities"))
@@ -123,7 +128,7 @@ public class textAdventure
 					GameData.data.add(new GameData (GameData.data.get(statCounter).getAttack()+1, GameData.data.get(statCounter).getAbility()));
 					statCounter = statCounter + 1; 
 					System.out.println("Congratulations your attack power is now " + GameData.data.get(statCounter).getAttack() + " this has costed you 100 of your " + startingGold + " gold.");
-					startingGold = startingGold - 100; 
+					startingGold = startingGold - 100;
 					townOptions();
 					}
 				}
@@ -197,7 +202,6 @@ public class textAdventure
 			boolean fightContinues = true;
 			do
 			{
-			System.out.println("The monster attacks! Will you fight with attacks, magic, or try to counter it?");
 			String fightDecision = keyboard.next();
 			if(fightDecision.equals ("magic"))
 			{
@@ -208,6 +212,7 @@ public class textAdventure
 					startingGold = startingGold + (int)(Math.random()*200);
 					System.out.println("You now have " + startingGold + " gold.");
 					fightContinues = false;
+					//the fight continues even though the monster is dead
 					
 				}
 				if(monHealth >= 0)
@@ -225,7 +230,7 @@ public class textAdventure
 			if(fightDecision.equals("attacks"))
 				{
 				monHealth = monHealth - GameData.data.get(statCounter).getAttack();
-				if(monhealth <= 0)
+				if(monHealth <= 0)
 					{
 					System.out.println("You have lashed out and killed the monster, it dropped gold on the ground in its death throes.");
 					startingGold = startingGold + (int)(Math.random()*200);
@@ -247,7 +252,7 @@ public class textAdventure
 			if(fightDecision.equals("counter"))
 				{
 				int dodgeChance = (int)(Math.random()*5+1);
-				if(dodgeChance.equals(3))
+				if(dodgeChance == (3))
 					{
 					System.out.println("You successfully evade the monster's attack and strike back, killing it instantly. It dropped some gold on the ground before dying.");
 					startingGold = startingGold + (int)(Math.random()*200+1);
