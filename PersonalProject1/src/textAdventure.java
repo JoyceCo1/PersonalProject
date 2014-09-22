@@ -89,14 +89,14 @@ public class textAdventure
 								}
 							if(playAgain.equals("no"))
 								{
-								// put the method that exits the program here 
+							        System.exit(0);
 								}
 							}
 						}
 						if(explore.equals("no"))
 							{
 							System.out.println("You have decided against doing anything at all. Probably safe, as it would be dangerous to move from this location. You decide to live a life of woeful inadaquecy until you pass away without leaving this trusty safe spot.");
-							//insert method that exits the program here
+							System.exit(0);
 							}
 					}
 		}
