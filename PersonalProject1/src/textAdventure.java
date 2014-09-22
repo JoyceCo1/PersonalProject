@@ -190,7 +190,7 @@ public class textAdventure
 		
 		}
 		
-		public static void combat()
+	public static void combat()
 		{
             Scanner keyboard = new Scanner(System.in);		
 			System.out.println("The monster attacks! Will you fight with attacks, magic, or try to counter it?");
@@ -218,10 +218,48 @@ public class textAdventure
 					if(health <=0)
 					{
 						System.out.println("You have been slain");
-						// enter method to exit program 
+						System.exit(0);
 					}
 				}
 			}
+			if(fightDecision.equals("attacks"))
+				{
+				monHealth = monHealth - GameData.data.get(statCounter).getAttack();
+				if(monhealth <= 0)
+					{
+					System.out.println("You have lashed out and killed the monster, it dropped gold on the ground in its death throes.");
+					startingGold = startingGold + (int)(Math.random()*200);
+					System.out.println("You now have " + startingGold + " gold.");
+					fightContinues = false;
+					}
+				if(monHealth >=0)
+					{
+					System.out.println("The monster now has " + monHealth + " health remaining. It now attacks you!");
+					health = health - monAttack;
+					System.out.println("The monster hits you for " + monAttack + " damage. You now have " + health + " remaining.");
+					if(health <= 0)
+						{
+						System.out.println("The monster has struck back, fatally wounding you. You have been slain.");
+						System.exit(0);
+						}
+					}
+				}
+			if(fightDecision.equals("counter"))
+				{
+				int dodgeChance = (int)(Math.random()*5+1);
+				if(dodgeChance.equals(3))
+					{
+					System.out.println("You successfully evade the monster's attack and strike back, killing it instantly. It dropped some gold on the ground before dying.");
+					startingGold = startingGold + (int)(Math.random()*200+1);
+					System.out.println("You now have " + startingGold + " gold.");
+					fightContinues = false;
+					}
+				else{
+				System.out.println("You try to counter the monster's attack but fail to time it correctly, before you can recover the monster strings attacks one after the other on you until you finally die.");
+				System.exit(0);
+				}
+				}
+			
 			
 		}
 		while(fightContinues);
