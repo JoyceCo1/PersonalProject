@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 public class textAdventure
 	{
+	//put the forest method in
 	public static int startingGold = 500;
 	public static int health = 25;
 	public static int monHealth = 10; 
@@ -37,6 +38,11 @@ public class textAdventure
 				System.out.println("Congratulations " + name + " you are a " + class1 + " with " + GameData.data.get(statCounter).getAttack() + " attack skill and " + GameData.data.get(statCounter).getAbility() + " ability power!");
 			
 				}
+			if(class1.equals("god"))
+				{
+				GameData.data.add(new GameData (100, 100));
+				System.out.println("You have initiated god mode.");
+				}
 			
 		}
 	
@@ -69,7 +75,8 @@ public class textAdventure
 					String explore = keyboard3.next();
 					if(explore.equals("yes"));
 						{
-						System.out.println("You have decided to wander into the Grim Woods, opposite the nearest town. This is a place of evil magic, to defeat the darkness here you have to clear out 4 different Dark Shrines and fight the greater Dark Mage. Will you enter?");
+						System.out.println("You have decided to wander into the Grim Woods, opposite the nearest town.");
+						System.out.println("This is a place of evil magic, to defeat the darkness here you have to clear out 4 different Dark Shrines and fight the greater Dark Mage. Will you enter?");
 						Scanner keyboard4 = new Scanner(System.in);
 						String enterWoods = keyboard4.next();
 						if(enterWoods.equals("yes"))
@@ -106,7 +113,7 @@ public class textAdventure
 		public static void townOptions()
 			{
 			Scanner keyboard = new Scanner(System.in);
-			System.out.println("Would you like to train, buy, or explore?");
+			System.out.println("Would you like to train or explore?");
 			String options = keyboard.next();
 			if(options.equals("train"))
 				{
@@ -134,29 +141,20 @@ public class textAdventure
 					townOptions();
 					}
 				}
-			if(options.equals("buy"))
-				{
-				Scanner keyboard1 = new Scanner(System.in);
-				System.out.println("You arrive at the town market, would you like to shop for magic or physical items?");
-				String buy = keyboard1.next();
-				if(buy.equals("physical"));
-					{
-					System.out.println("You make your way over to the physical item salesman, who is showing you three items. A dagger, sword, and mace.");
-					
-				}
 			if(options.equals("explore"))
 				{
+				System.out.println("You find yourself wandering the town when you come across a giant pit in the middle of the town square.");
+				System.out.println("Someone explains to you that this is the legendary Dungeon of Horrors. It descends 5 floors and on each floor more powerful monsters will attack you.");
+				System.out.println("You feel drawn to this place. Will you enter the dungeon?");
 				Scanner keyboard2 = new Scanner(System.in);
-				System.out.println("You find yourself wandering the town when you come across a giant pit in the middle of the town square. Someone explains to you that this is the legendary Dungeon of Horrors. It descends 5 floors and on each floor more powerful monsters will attack you, but you will also find better treasure. Will you enter the dungeon?");
 				String dungeonDecision = keyboard2.next();
 				if(dungeonDecision.equals("yes"));
 					{
-					System.out.println("You descend into the Dungeon of Horrors, eager to seek your destiny.");
-					// insert dungeon method here 
+					enemyData.dungeon();
 					}
 				}
 				}
-			}
+			
 		
 		public static void fightScreen()
 			{
@@ -215,7 +213,6 @@ public class textAdventure
 					System.out.println("You now have " + startingGold + " gold.");
 					fightContinues = false;
 					monHealth = -1;
-					//the fight continues even though the monster is dead
 					
 				}
 				if(monHealth >= 0)
