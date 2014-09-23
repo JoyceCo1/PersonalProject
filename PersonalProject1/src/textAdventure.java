@@ -9,6 +9,8 @@ public class textAdventure
 	public static int monAttack = 4; 
 	public static int bossAttack = 15;
 	public static int statCounter = 0;
+	public static int dungeonMonAttack = 8;
+	public static int dungeonMonHealth = 35;
 	public static void main(String[] args)
 		{
 		Character();
@@ -212,6 +214,7 @@ public class textAdventure
 					startingGold = startingGold + (int)(Math.random()*200);
 					System.out.println("You now have " + startingGold + " gold.");
 					fightContinues = false;
+					monHealth = -1;
 					//the fight continues even though the monster is dead
 					
 				}
@@ -220,6 +223,7 @@ public class textAdventure
 					System.out.println("The monster now has " + monHealth + " health remaining. It now attacks you!");
 					health = health - monAttack;
 					System.out.println("The monster hits you for " + monAttack + " damage. You now have " + health + " remaining");
+					//
 					if(health <=0)
 					{
 						System.out.println("You have been slain");
@@ -236,6 +240,7 @@ public class textAdventure
 					startingGold = startingGold + (int)(Math.random()*200);
 					System.out.println("You now have " + startingGold + " gold.");
 					fightContinues = false;
+					monHealth = -1;
 					}
 				if(monHealth >=0)
 					{
