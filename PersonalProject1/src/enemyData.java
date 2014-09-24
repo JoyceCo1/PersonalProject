@@ -3,14 +3,7 @@ import java.util.Scanner;
 public class enemyData
 	{
 	public static int levelCount = 0;
-    String[] dungeonMonsters;
-    dungeonMonsters = new String[4];
-    dungeonMonsters[0] = "Skeleton Warrior";
-    dungeonMonsters[1] = "Night Demon";
-    dungeonMonsters[2] = "Ogre";
-    dungeonMonsters[3] = "Great Demon";
-    		
-	
+    			
 	public static void dungeon()
 	{
 		System.out.println("You have entered the dungeon to face your destiny. There will be five floors and you can not run away from the monsters.");
@@ -18,7 +11,7 @@ public class enemyData
 		for(int i = 0; i<5; i++)
 			{
 			Scanner keyboard1 = new Scanner(System.in);
-			if(levelCount == 3)
+			if(levelCount == 4)
 				{
 				System.out.println("Congratulations you have reached the final level of the dungeon. Prepare to face the final monster on your quest.");
 				System.out.println("Would you like to heal your character?");
@@ -294,8 +287,94 @@ public class enemyData
 	}
 	
 	}
+	public static void woods()
+		{
+    Scanner keyboard = new Scanner(System.in);		
+	System.out.println("As you enter the woods, you see a large, robed figure waiting for you.");
+	System.out.println("This is Urgeon, the Lord of the Void, he is awaiting you.");
+	System.out.println("Urgeon lashes out with tendrils of magic, will you fight with magic, attacks or try to counter?");
+	boolean fightContinues = true;
+	do
+	{
+	String fightDecision = keyboard.next();
+	if(fightDecision.equals ("magic"))
+	{
+		textAdventure.bossHealth = textAdventure.bossHealth - GameData.data.get(textAdventure.statCounter).getAbility();
+		if(textAdventure.bossHealth <= 0)
+		{
+			System.out.println("Urgeon was unprepared for your raw, unrefined mastery of magic.");
+			System.out.println("Your magic blasts his body back into the void, to be locked there forever");
+			System.out.println("Congratulations, you have fulfilled your destiny through the woods quest.");
+			System.exit(0);
+			fightContinues = false;
+			textAdventure.bossHealth = -1;
+			
+		}
+		if(textAdventure.bossHealth >= 0)
+		{
+			System.out.println("The monster now has " + textAdventure.bossHealth + " health remaining. It now attacks you!");
+			textAdventure.health = textAdventure.health - textAdventure.bossAttack;
+			System.out.println("The monster hits you for " + textAdventure.bossAttack + " damage. You now have " + textAdventure.health + " remaining");
+			//
+			if(textAdventure.health <=0)
+			{
+				System.out.println("Your magic was no use for the Lord of the Void.");
+				System.out.println("Urgeon absorbed your magical prowess and banished you to the void forever.");
+				System.out.println("GAME OVER");
+				System.exit(0);
+			}
+		}
 	}
+	if(fightDecision.equals("attacks"))
+		{
+		textAdventure.bossHealth = textAdventure.bossHealth - GameData.data.get(textAdventure.statCounter).getAttack();
+		if(textAdventure.bossHealth <= 0)
+			{
+			System.out.println("The Lord of the Void isn't prepared for the fury and speed of your attacks.");
+			System.out.println("He succumbs to them quickly and his body breaks under the fury of your attacks");
+			System.out.println("Congratulations you have fulfilled your destiny through the woods quest.");
+			System.exit(0);
+			fightContinues = false;
+			textAdventure.bossHealth = -1;
+			}
+		if(textAdventure.bossHealth >=0)
+			{
+			System.out.println("The monster now has " + textAdventure.bossHealth + " health remaining. It now attacks you!");
+			textAdventure.health = textAdventure.health - textAdventure.bossAttack;
+			System.out.println("The monster hits you for " + textAdventure.bossAttack + " damage. You now have " + textAdventure.health + " remaining.");
+			if(textAdventure.health <= 0)
+				{
+				System.out.println("Urgeon's mind latches onto yours and you lose yourself into insanity");
+				System.out.println("GAME OVER");
+				System.exit(0);
+				}
+			}
+		}
+	if(fightDecision.equals("counter"))
+		{
+		int dodgeChance = (int)(Math.random()*5+1);
+		if(dodgeChance == (3))
+			{
+			System.out.println("You successfully evade the Lord of the Void's attack and strike back, killing it instantly.");
+			System.out.println("His mind slips back into the void after you defeat him");
+			System.out.println("Congratulations you have fulfilled your destiny through the woods ending.");
+			fightContinues = false;
+			System.exit(0);
+			}
+		else{
+		System.out.println("You attempt to dodge Urgeon's magic, however your minds is locked into his before you can dodge.");
+		System.out.println("Your mind is lost to the void.");
+		System.out.println("GAME OVER"); 
+		System.exit(0);
+		}
+		}
+	
+	
 }
+while(fightContinues);
+}
+}
+
 	
 
 

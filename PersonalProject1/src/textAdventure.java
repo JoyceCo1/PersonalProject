@@ -73,16 +73,17 @@ public class textAdventure
 					System.out.println("Would you like to explore the area around you?");
 					Scanner keyboard3 = new Scanner(System.in);
 					String explore = keyboard3.next();
-					if(explore.equals("yes"));
+					if(explore.equals("yes"))
 						{
 						System.out.println("You have decided to wander into the Grim Woods, opposite the nearest town.");
-						System.out.println("This is a place of evil magic, to defeat the darkness here you have to clear out 4 different Dark Shrines and fight the greater Dark Mage. Will you enter?");
+						System.out.println("This is a place of evil magic, to defeat the darkness here you have to defeat the Lord of the Void, Urgeon");
+						System.out.println("Would you like to enter? To clear the woods you only have to fight one monster.");
 						Scanner keyboard4 = new Scanner(System.in);
 						String enterWoods = keyboard4.next();
 						if(enterWoods.equals("yes"))
 							{
 							System.out.println("You are swallowed into the darkness of the woods, seeking to destroy the evil there, and meet your destiny.");
-							// run the forest method which will be similar to the dungeon except only 4 areas, not 10, use different monsters, make them stronger, less chance of healing fountain. 
+							enemyData.woods();
 							}
 						if(enterWoods.equals("no"))
 							{
@@ -104,11 +105,16 @@ public class textAdventure
 						}
 						if(explore.equals("no"))
 							{
-							System.out.println("You have decided against doing anything at all. Probably safe, as it would be dangerous to move from this location. You decide to live a life of woeful inadaquecy until you pass away without leaving this trusty safe spot.");
+							System.out.println("You have decided against doing anything at all.");
+							System.out.println("Probably safe, as it would be dangerous to move from this location.");
+							System.out.println("You decide to live a life of woeful inadaquecy until you pass away without leaving this trusty safe spot.");
+							System.out.println("GAME OVER");
 							System.exit(0);
 							}
 					}
-		}
+					}
+		
+		
 		
 		public static void townOptions()
 			{
